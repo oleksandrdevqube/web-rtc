@@ -1,0 +1,48 @@
+<div class="content">
+  <h1 class="text">Room: {{roomId}}</h1>
+  <div class="video-container">
+    <div class="video-container--content">
+      <video #video id="video" autoplay="true">
+      </video>
+    </div>
+    <div class="video-container--content">
+      <video [hidden]="!remoteStream" #video1 id="videoRemote" autoplay="true" [ngClass]="{'video-two': this.fullWidth}"
+             (dblclick)="fullWidth = !fullWidth">
+      </video>
+      <div *ngIf="!remoteStream" class="video-container--content--block">
+        <div class="video-container--content--block--circle">
+          <div>Wait User</div>
+        </div>
+      </div>
+    </div>
+    <div class="video-container--content" [ngStyle]="{'display': downloadUrl ? 'flex' : 'none'}">
+      <video id="videoRecord">
+      </video>
+    </div>
+  </div>
+  <div>
+    <div class="button-container">
+      <input #room placeholder="Please set room id">
+      <button (click)="connectRoom(room.value)">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">call</mat-icon>
+      </button>
+      <button (click)="stopStream()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">call_end</mat-icon>
+      </button>
+      <button (click)="startShareMonitor()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">screen_share</mat-icon>
+      </button>
+      <button (click)="startRecord()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">fiber_manual_record</mat-icon>
+      </button>
+      <button (click)="stopRecording()" *ngIf="recordVideoElement">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">stop</mat-icon>
+      </button>
+      <button (click)="playRecording()" *ngIf="recordVideoElement">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">play_arrow</mat-icon>
+      </button>
+      <button *ngIf="downloadUrl" (click)="download()">
+        <mat-icon aria-hidden="false" aria-label="Example home icon">file_download</mat-icon>
+      </button>
+    </div>
+  </div>
